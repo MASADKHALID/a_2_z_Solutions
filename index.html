@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A2Z Solutions – Software Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue-50: #E6F1FB;
+    --blue-100: #B5D4F4;
+    --blue-200: #85B7EB;
+    --blue-400: #378ADD;
+    --blue-600: #185FA5;
+    --blue-800: #0C447C;
+    --blue-900: #042C53;
+    --gray-50: #F7F9FC;
+    --gray-100: #EEF2F7;
+    --gray-200: #D8E0EC;
+    --gray-400: #8A96A8;
+    --gray-600: #4A5568;
+    --gray-800: #1E2A3A;
+    --white: #ffffff;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 16px rgba(24,95,165,0.10), 0 1px 4px rgba(0,0,0,0.06);
+    --shadow-lg: 0 8px 32px rgba(24,95,165,0.14), 0 2px 8px rgba(0,0,0,0.08);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    --radius-xl: 24px;
+    --font-display: 'Sora', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-body); background: var(--gray-50); color: var(--gray-800); line-height: 1.6; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--gray-200);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo-icon {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: var(--blue-600);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 700; color: white; font-size: 15px; letter-spacing: -0.5px;
+  }
+  .nav-logo-text { font-family: var(--font-display); font-weight: 600; font-size: 17px; color: var(--blue-900); }
+  .nav-logo-text span { color: var(--blue-400); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { text-decoration: none; font-size: 14px; font-weight: 500; color: var(--gray-600); transition: color .2s; }
+  .nav-links a:hover { color: var(--blue-600); }
+  .nav-cta { background: var(--blue-600); color: white; padding: 9px 20px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 600; text-decoration: none; transition: background .2s; letter-spacing: .2px; }
+  .nav-cta:hover { background: var(--blue-800); }
+  .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--gray-800); border-radius: 2px; transition: .3s; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-600) 60%, var(--blue-400) 100%);
+    padding: 90px 5% 80px;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-badge {
+    display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+    color: white; padding: 5px 16px; border-radius: 20px; font-size: 12px; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 700; color: white; line-height: 1.18; margin-bottom: 18px; letter-spacing: -0.5px;
+  }
+  .hero h1 em { font-style: normal; color: #93C5FD; }
+  .hero p { font-size: 1.05rem; color: rgba(255,255,255,0.8); max-width: 560px; margin: 0 auto 36px; }
+  .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { background: white; color: var(--blue-800); padding: 13px 28px; border-radius: var(--radius-sm); font-weight: 700; font-size: 14px; text-decoration: none; transition: .2s; box-shadow: var(--shadow-md); }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: var(--shadow-lg); }
+  .btn-outline { border: 2px solid rgba(255,255,255,0.5); color: white; padding: 11px 24px; border-radius: var(--radius-sm); font-weight: 600; font-size: 14px; text-decoration: none; transition: .2s; }
+  .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: white; }
+
+  /* STATS */
+  .stats-bar {
+    background: white; border-bottom: 1px solid var(--gray-200);
+    display: flex; justify-content: center; gap: 0; flex-wrap: wrap;
+  }
+  .stat-item { padding: 22px 40px; text-align: center; border-right: 1px solid var(--gray-200); flex: 1; min-width: 140px; max-width: 240px; }
+  .stat-item:last-child { border-right: none; }
+  .stat-num { font-family: var(--font-display); font-size: 1.7rem; font-weight: 700; color: var(--blue-600); }
+  .stat-label { font-size: 12px; color: var(--gray-400); text-transform: uppercase; letter-spacing: .6px; margin-top: 2px; }
+
+  /* SECTION TITLES */
+  .section-header { text-align: center; padding: 64px 5% 36px; }
+  .section-header .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--blue-400); margin-bottom: 10px; }
+  .section-header h2 { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; color: var(--blue-900); margin-bottom: 12px; letter-spacing: -.3px; }
+  .section-header p { color: var(--gray-600); font-size: 1rem; max-width: 520px; margin: 0 auto; }
+
+  /* PRODUCT GRID */
+  .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; padding: 0 5% 64px; max-width: 1200px; margin: 0 auto; }
+
+  /* PRODUCT CARD */
+  .product-card {
+    background: white; border-radius: var(--radius-lg); border: 1px solid var(--gray-200);
+    overflow: hidden; transition: transform .25s, box-shadow .25s; cursor: pointer;
+    display: flex; flex-direction: column;
+  }
+  .product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--blue-100); }
+  .product-card-img {
+    width: 100%; height: 190px; object-fit: cover;
+    background: linear-gradient(135deg, var(--blue-50) 0%, var(--blue-100) 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem; color: var(--blue-400); position: relative;
+  }
+  .product-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .product-card-img .img-placeholder { position: absolute; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .product-badge {
+    position: absolute; top: 12px; right: 12px;
+    background: var(--blue-600); color: white; padding: 3px 10px;
+    border-radius: 12px; font-size: 11px; font-weight: 700; letter-spacing: .3px;
+  }
+  .product-badge.new { background: #16A34A; }
+  .product-badge.popular { background: #D97706; }
+  .product-card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+  .product-category { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--blue-400); margin-bottom: 6px; }
+  .product-card-body h3 { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; color: var(--blue-900); margin-bottom: 8px; line-height: 1.3; }
+  .product-card-body p { font-size: 13.5px; color: var(--gray-600); line-height: 1.55; margin-bottom: 16px; flex: 1; }
+  .product-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .product-price { font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; color: var(--blue-600); }
+  .product-price small { font-size: 12px; font-weight: 400; color: var(--gray-400); margin-left: 2px; }
+  .product-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 14px; }
+  .product-tag { background: var(--blue-50); color: var(--blue-800); padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+  .product-card-actions { display: flex; gap: 8px; }
+  .btn-details { flex: 1; background: var(--blue-50); color: var(--blue-700); border: none; padding: 10px 0; border-radius: var(--radius-sm); font-size: 13px; font-weight: 600; cursor: pointer; transition: .2s; font-family: var(--font-body); }
+  .btn-details:hover { background: var(--blue-100); }
+  .btn-whatsapp { flex: 1; background: #25D366; color: white; border: none; padding: 10px 0; border-radius: var(--radius-sm); font-size: 13px; font-weight: 600; cursor: pointer; transition: .2s; display: flex; align-items: center; justify-content: center; gap: 6px; font-family: var(--font-body); }
+  .btn-whatsapp:hover { background: #1DA851; }
+  .btn-whatsapp svg { width: 15px; height: 15px; fill: white; }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 999;
+    background: rgba(4,44,83,0.6); backdrop-filter: blur(4px);
+    padding: 20px; align-items: flex-start; justify-content: center; overflow-y: auto;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: white; border-radius: var(--radius-xl); width: 100%; max-width: 780px;
+    margin: auto; overflow: hidden; animation: slideUp .3s ease;
+    box-shadow: 0 24px 64px rgba(4,44,83,0.25);
+  }
+  @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .modal-header { position: relative; }
+  .modal-hero-img {
+    width: 100%; height: 260px; object-fit: cover;
+    background: linear-gradient(135deg, var(--blue-50), var(--blue-200));
+    display: flex; align-items: center; justify-content: center; font-size: 5rem; color: var(--blue-300);
+  }
+  .modal-hero-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .modal-close {
+    position: absolute; top: 14px; right: 14px; width: 34px; height: 34px;
+    background: rgba(255,255,255,0.9); border: none; border-radius: 50%; cursor: pointer;
+    font-size: 18px; display: flex; align-items: center; justify-content: center;
+    color: var(--gray-800); transition: .2s; font-family: var(--font-body);
+  }
+  .modal-close:hover { background: white; transform: scale(1.1); }
+  .modal-body { padding: 28px 32px; }
+  .modal-category { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--blue-400); margin-bottom: 6px; }
+  .modal-body h2 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; color: var(--blue-900); margin-bottom: 10px; }
+  .modal-price-row { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+  .modal-price { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--blue-600); }
+  .modal-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .modal-section { margin-bottom: 22px; }
+  .modal-section h4 { font-family: var(--font-display); font-size: 13px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; color: var(--blue-600); margin-bottom: 10px; border-bottom: 1px solid var(--blue-50); padding-bottom: 7px; }
+  .modal-description { font-size: 14.5px; color: var(--gray-600); line-height: 1.7; }
+  .modal-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+  .modal-gallery-img { width: 100%; height: 110px; object-fit: cover; border-radius: var(--radius-sm); border: 1px solid var(--gray-200); background: var(--blue-50); cursor: pointer; transition: .2s; }
+  .modal-gallery-img:hover { transform: scale(1.02); border-color: var(--blue-200); }
+  .features-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+  .features-list li { font-size: 13.5px; color: var(--gray-600); display: flex; align-items: center; gap: 7px; }
+  .features-list li::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--blue-400); flex-shrink: 0; }
+  .modal-contract { background: var(--blue-50); border: 1.5px solid var(--blue-100); border-radius: var(--radius-md); padding: 16px 20px; display: flex; align-items: center; gap: 14px; }
+  .modal-contract-icon { width: 40px; height: 40px; background: var(--blue-600); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .modal-contract-icon svg { width: 20px; height: 20px; fill: white; }
+  .modal-contract-text { flex: 1; }
+  .modal-contract-text p { font-size: 13.5px; font-weight: 600; color: var(--blue-900); margin-bottom: 2px; }
+  .modal-contract-text small { font-size: 12px; color: var(--blue-600); }
+  .btn-download { background: white; border: 1.5px solid var(--blue-200); color: var(--blue-700); padding: 8px 16px; border-radius: var(--radius-sm); font-size: 12px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; transition: .2s; }
+  .btn-download:hover { background: var(--blue-50); border-color: var(--blue-400); }
+  .modal-footer { padding: 20px 32px; border-top: 1px solid var(--gray-200); display: flex; gap: 10px; flex-wrap: wrap; }
+  .modal-footer .btn-whatsapp-lg { flex: 1; background: #25D366; color: white; border: none; padding: 14px 24px; border-radius: var(--radius-md); font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: .2s; min-width: 180px; font-family: var(--font-body); }
+  .modal-footer .btn-whatsapp-lg:hover { background: #1DA851; }
+  .modal-footer .btn-whatsapp-lg svg { width: 18px; height: 18px; fill: white; }
+  .modal-footer .btn-email { background: var(--blue-50); color: var(--blue-700); border: 1.5px solid var(--blue-100); padding: 14px 20px; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 7px; transition: .2s; text-decoration: none; }
+  .modal-footer .btn-email:hover { background: var(--blue-100); }
+
+  /* ABOUT */
+  .about-section { background: var(--blue-900); padding: 80px 5%; }
+  .about-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .about-text .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--blue-200); margin-bottom: 12px; }
+  .about-text h2 { font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; color: white; margin-bottom: 16px; line-height: 1.25; }
+  .about-text p { color: rgba(255,255,255,0.72); font-size: 14.5px; line-height: 1.7; margin-bottom: 12px; }
+  .about-info-card { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius-lg); padding: 28px; }
+  .about-info-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .about-info-row:last-child { border-bottom: none; }
+  .about-info-icon { width: 36px; height: 36px; background: rgba(55,138,221,0.25); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .about-info-icon svg { width: 16px; height: 16px; fill: var(--blue-200); }
+  .about-info-content small { font-size: 11px; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: .8px; display: block; }
+  .about-info-content p { font-size: 14px; color: white; font-weight: 500; margin: 0; }
+
+  /* CONTACT CTA */
+  .cta-section { background: white; padding: 80px 5%; text-align: center; border-top: 1px solid var(--gray-200); }
+  .cta-section h2 { font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; color: var(--blue-900); margin-bottom: 10px; }
+  .cta-section p { color: var(--gray-600); margin-bottom: 28px; max-width: 500px; margin-left: auto; margin-right: auto; }
+  .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .cta-btns .btn-whatsapp-cta { background: #25D366; color: white; padding: 13px 28px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: .2s; }
+  .cta-btns .btn-whatsapp-cta:hover { background: #1DA851; }
+  .cta-btns .btn-whatsapp-cta svg { width: 16px; height: 16px; fill: white; }
+  .cta-btns .btn-email-cta { background: var(--blue-50); color: var(--blue-700); padding: 13px 24px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 600; text-decoration: none; border: 1.5px solid var(--blue-100); transition: .2s; }
+  .cta-btns .btn-email-cta:hover { background: var(--blue-100); }
+
+  /* FOOTER */
+  footer { background: var(--gray-800); padding: 32px 5%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  footer .footer-brand { display: flex; align-items: center; gap: 10px; }
+  footer .footer-brand-icon { width: 32px; height: 32px; border-radius: 8px; background: var(--blue-600); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 700; color: white; font-size: 12px; }
+  footer .footer-brand p { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 1px; }
+  footer .footer-brand strong { color: white; font-size: 14px; }
+  footer .footer-copy { font-size: 12px; color: rgba(255,255,255,0.35); }
+
+  /* MOBILE NAV */
+  .mobile-menu { display: none; background: white; border-top: 1px solid var(--gray-200); padding: 16px 5%; }
+  .mobile-menu.open { display: block; }
+  .mobile-menu a { display: block; padding: 10px 0; font-size: 15px; color: var(--gray-700); text-decoration: none; border-bottom: 1px solid var(--gray-100); font-weight: 500; }
+  .mobile-menu a:last-child { border-bottom: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .nav-links, .nav-cta { display: none; }
+    .nav-hamburger { display: flex; }
+    .about-inner { grid-template-columns: 1fr; gap: 32px; }
+    .stat-item { padding: 16px 24px; }
+    .features-list { grid-template-columns: 1fr; }
+    .modal-body { padding: 20px; }
+    .modal-footer { padding: 16px 20px; }
+  }
+  @media (max-width: 480px) {
+    .products-grid { grid-template-columns: 1fr; }
+    .modal-gallery { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">A2Z</div>
+    <span class="nav-logo-text">A2Z <span>Solutions</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#products">Products</a></li>
+    <li><a href="#about">About Us</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get in Touch</a>
+  <button class="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#products" onclick="toggleMobileMenu()">Products</a>
+  <a href="#about" onclick="toggleMobileMenu()">About Us</a>
+  <a href="#contact" onclick="toggleMobileMenu()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">⚡ Professional Software Solutions</div>
+  <h1>Powerful Software for<br><em>Every Business Need</em></h1>
+  <p>Discover our curated catalog of professional software tools, built to streamline your operations and accelerate growth.</p>
+  <div class="hero-btns">
+    <a href="#products" class="btn-primary">Browse Products</a>
+    <a href="#contact" class="btn-outline">Talk to Us</a>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-num">1</div><div class="stat-label">Products</div></div>
+  <div class="stat-item"><div class="stat-num">0</div><div class="stat-label">Happy Clients</div></div>
+  <div class="stat-item"><div class="stat-num">24/7</div><div class="stat-label">Support</div></div>
+  <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">Satisfaction</div></div>
+</div>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="section-header">
+    <div class="eyebrow">Our Catalog</div>
+    <h2>Software Products</h2>
+    <p>Click on any product to view details, screenshots, pricing, and download the purchase contract.</p>
+  </div>
+
+  <div class="products-grid" id="productsGrid"></div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="about-inner">
+    <div class="about-text">
+      <div class="eyebrow">About A2Z Solutions</div>
+      <h2>Your Trusted Software Partner in Pakistan</h2>
+      <p>We develop and deliver professional software solutions tailored for businesses across Pakistan and beyond. Our products are built with reliability, simplicity, and power in mind.</p>
+      <p>From point-of-sale systems to complete ERP solutions, we cover the full spectrum of business software needs — backed by dedicated support.</p>
+    </div>
+    <div class="about-info-card">
+      <div class="about-info-row">
+        <div class="about-info-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
+        <div class="about-info-content"><small>Owner</small><p>Muhammad Asad</p></div>
+      </div>
+      <div class="about-info-row">
+        <div class="about-info-icon"><svg viewBox="0 0 24 24"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg></div>
+        <div class="about-info-content"><small>Company</small><p>A2Z Solutions</p></div>
+      </div>
+      <div class="about-info-row">
+        <div class="about-info-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+        <div class="about-info-content"><small>Email</small><p>Muhammad.Asad.Khalid@outlook.com</p></div>
+      </div>
+      <div class="about-info-row">
+        <div class="about-info-icon"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>
+        <div class="about-info-content"><small>WhatsApp</small><p id="aboutPhone">+92 3XX XXX XXXX</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+<section class="cta-section" id="contact">
+  <h2>Ready to Get Started?</h2>
+  <p>Have questions or want to purchase? Reach out via WhatsApp or email — we respond fast.</p>
+  <div class="cta-btns">
+    <a href="#" class="btn-whatsapp-cta" id="mainWhatsapp" onclick="openWhatsApp('Hi, I am interested in your software products at A2Z Solutions.', event)">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.553 4.12 1.518 5.851L.018 24l6.337-1.48A11.934 11.934 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.795 9.795 0 01-5.003-1.367l-.36-.213-3.728.871.901-3.63-.234-.373A9.794 9.794 0 012.182 12C2.182 6.578 6.578 2.182 12 2.182S21.818 6.578 21.818 12 17.422 21.818 12 21.818z"/></svg>
+      Chat on WhatsApp
+    </a>
+    <a href="mailto:Muhammad.Asad.Khalid@outlook.com" class="btn-email-cta">✉️ Send Email</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="footer-brand-icon">A2Z</div>
+    <div>
+      <strong>A2Z Solutions</strong>
+      <p>© 2025 A2Z Solutions. All rights reserved.</p>
+    </div>
+  </div>
+  <div class="footer-copy">Muhammad.Asad.Khalid@outlook.com</div>
+</footer>
+
+<!-- PRODUCT DETAIL MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOnBackdrop(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-hero-img" id="modalHeroImg"></div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-category" id="modalCategory"></div>
+      <h2 id="modalTitle"></h2>
+      <div class="modal-price-row">
+        <div class="modal-price" id="modalPrice"></div>
+        <div class="modal-tags" id="modalTagsBadges"></div>
+      </div>
+      <div class="modal-section">
+        <h4>Description</h4>
+        <div class="modal-description" id="modalDescription"></div>
+      </div>
+      <div class="modal-section" id="modalFeaturesSection">
+        <h4>Key Features</h4>
+        <ul class="features-list" id="modalFeatures"></ul>
+      </div>
+      <div class="modal-section" id="modalGallerySection">
+        <h4>Screenshots</h4>
+        <div class="modal-gallery" id="modalGallery"></div>
+      </div>
+      <div class="modal-section" id="modalContractSection">
+        <h4>Purchase Contract</h4>
+        <div class="modal-contract">
+          <div class="modal-contract-icon">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zM8 15h8v1H8v-1zm0-3h8v1H8v-1zm0-3h5v1H8V9z"/></svg>
+          </div>
+          <div class="modal-contract-text">
+            <p id="contractName">Purchase Agreement</p>
+            <small>Click to read and download the full contract before purchase</small>
+          </div>
+          <a href="#" id="contractLink" class="btn-download" target="_blank">View Contract</a>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-whatsapp-lg" id="modalWhatsappBtn">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.553 4.12 1.518 5.851L.018 24l6.337-1.48A11.934 11.934 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.795 9.795 0 01-5.003-1.367l-.36-.213-3.728.871.901-3.63-.234-.373A9.794 9.794 0 012.182 12C2.182 6.578 6.578 2.182 12 2.182S21.818 6.578 21.818 12 17.422 21.818 12 21.818z"/></svg>
+        Buy via WhatsApp
+      </button>
+      <a href="mailto:Muhammad.Asad.Khalid@outlook.com" class="btn-email">✉️ Email Us</a>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOnBackdrop(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-hero-img" id="modalHeroImg"></div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-category" id="modalCategory"></div>
+      <h2 id="modalTitle"></h2>
+      <div class="modal-price-row">
+        <div class="modal-price" id="modalPrice"></div>
+        <div class="modal-tags" id="modalTagsBadges"></div>
+      </div>
+      <div class="modal-section">
+        <h4>Description</h4>
+        <div class="modal-description" id="modalDescription"></div>
+      </div>
+      <div class="modal-section" id="modalFeaturesSection">
+        <h4>Key Features</h4>
+        <ul class="features-list" id="modalFeatures"></ul>
+      </div>
+      <div class="modal-section" id="modalGallerySection">
+        <h4>Screenshots</h4>
+        <div class="modal-gallery" id="modalGallery"></div>
+      </div>
+      <div class="modal-section" id="modalContractSection">
+        <h4>Purchase Contract</h4>
+        <div class="modal-contract">
+          <div class="modal-contract-icon">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zM8 15h8v1H8v-1zm0-3h8v1H8v-1zm0-3h5v1H8V9z"/></svg>
+          </div>
+          <div class="modal-contract-text">
+            <p id="contractName">Purchase Agreement</p>
+            <small>Click to read and download the full contract before purchase</small>
+          </div>
+          <a href="#" id="contractLink" class="btn-download" target="_blank">View Contract</a>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-whatsapp-lg" id="modalWhatsappBtn">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.553 4.12 1.518 5.851L.018 24l6.337-1.48A11.934 11.934 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.795 9.795 0 01-5.003-1.367l-.36-.213-3.728.871.901-3.63-.234-.373A9.794 9.794 0 012.182 12C2.182 6.578 6.578 2.182 12 2.182S21.818 6.578 21.818 12 17.422 21.818 12 21.818z"/></svg>
+        Buy via WhatsApp
+      </button>
+      <a href="mailto:Muhammad.Asad.Khalid@outlook.com" class="btn-email">✉️ Email Us</a>
+    </div>
+  </div>
+</div>
+
+
+<script>
+/* ============================================================
+   CONFIGURATION — Edit this section to add/update products
+   ============================================================ */
+const WHATSAPP_NUMBER = '923196685041'; // <-- REPLACE with your WhatsApp number (e.g. 923001234567)
+
+const PRODUCTS = [
+  {
+    id: 1,
+    name: 'Health Tracker',           // <-- Change this
+    category: 'business',
+    categoryLabel: 'Business',
+    badge: '',
+    badgeLabel: '',
+    price: 'PKR 15,000',                 // <-- Change this
+    priceNote: '/license',
+    shortDesc: 'Health Tracker helps you log B, view trends, get reminders, and share reports.',   // <-- Change this
+    description: 'Health Tracker is a personal health monitoring app that lets you log and track your daily vitals — blood pressure, oxygen saturation (SpO2), temperature, and pulse. It stores all records locally on your device, displays trends through visual charts on a dashboard, and generates shareable reports. Daily reminder notifications keep you consistent, and a doctor appointment tracker helps you stay prepared for checkups.',  // <-- Change this
+    features: ['Real-Time Health Monitoring', 'Patient Vital Reports', 'Vital Report Sheet', 'Visual Analytics', 'Sharing Reports Feature'],  // <-- Edit features
+    tags: ['Android'],                  // <-- Edit tags
+    // ---- S3 IMAGE LINKS ----
+    mainImage: 'https://a-2-z-solutions.s3.us-east-1.amazonaws.com/images/health_tracker/ChatGPT+Image+Jun+8%2C+2026%2C+09_02_21+PM.png',                      // Paste your S3 image URL here
+    galleryImages: ['https://a-2-z-solutions.s3.us-east-1.amazonaws.com/images/health_tracker/dashboard.png',
+    'https://a-2-z-solutions.s3.us-east-1.amazonaws.com/images/health_tracker/entries.png',
+    'https://a-2-z-solutions.s3.us-east-1.amazonaws.com/images/health_tracker/main+page.png',
+    'https://a-2-z-solutions.s3.us-east-1.amazonaws.com/images/health_tracker/report.png',
+    'https://a-2-z-solutions.s3.us-east-1.amazonaws.com/images/health_tracker/WhatsApp+Image+2026-06-08+at+5.46.17+PM.jpeg'
+    ],        // Paste S3 screenshot URLs here
+    // ---- S3 CONTRACT PDF LINK ----
+    contractPdf: 'https://a-2-z-solutions.s3.us-east-1.amazonaws.com/contract/software_sales_agreement.mdhealth_tracker.pdf',                    // Paste your S3 PDF URL here
+    contractName: 'Purchase Agreement.pdf',
+  },
+  {
+    id: 2,
+    name: 'Pharmacy Management System',           // <-- Change this
+    category: 'business',
+    categoryLabel: 'Business',
+    badge: '',
+    badgeLabel: '',
+    price: 'PKR 30,000',                 // <-- Change this
+    priceNote: '/license',
+    shortDesc: 'A lightweight, secure desktop solution built with Python and SQLite designed to streamline daily pharmacy operations, track stock levels, and automate sales processing.',   // <-- Change this
+    description: 'PMS is an all-in-one desktop application engineered for independent pharmacies and medical retail stores. It replaces manual paperwork with a fast, reliable database system that handles point-of-sale operations, tracks medicine expiry dates, and monitors batch numbers. With an intuitive interface, it helps owners manage supplier records and generate instant financial summaries to keep the business profitable and organized.',  // <-- Change this
+    features: ['Real-Time Stock Monitoring', 'Expiry Date Alerts', 'Quick Billing & POS', 'Sales Analytics', 'Lightweight & Secure', 'Daily Messages'],  // <-- Edit features
+    tags: ['Windows'],                  // <-- Edit tags
+    // ---- S3 IMAGE LINKS ----
+    mainImage: 'https://a-2-z-solutions.s3.us-east-1.amazonaws.com/images/pms/sellpage.PNG',                      // Paste your S3 image URL here
+    galleryImages: ['https://a-2-z-solutions.s3.us-east-1.amazonaws.com/images/pms/managepage.PNG',
+    'https://a-2-z-solutions.s3.us-east-1.amazonaws.com/images/pms/recipts.PNG',
+    'https://a-2-z-solutions.s3.us-east-1.amazonaws.com/images/pms/stock.PNG',
+    'https://a-2-z-solutions.s3.us-east-1.amazonaws.com/images/pms/messag.PNG',
+    'https://a-2-z-solutions.s3.us-east-1.amazonaws.com/images/pms/expiry.PNG',
+    'https://a-2-z-solutions.s3.us-east-1.amazonaws.com/images/pms/sales.PNG',
+    'https://a-2-z-solutions.s3.us-east-1.amazonaws.com/images/pms/ownser.PNG',
+    'https://a-2-z-solutions.s3.us-east-1.amazonaws.com/images/pms/sellpage.PNG'],        // Paste S3 screenshot URLs here
+    // ---- S3 CONTRACT PDF LINK ----
+    contractPdf: 'https://a-2-z-solutions.s3.us-east-1.amazonaws.com/contract/Software+Sales+and+Service+Agreement.pdf',                    // Paste your S3 PDF URL here
+    contractName: 'Purchase Agreement.pdf',
+  },
+];
+
+/* ============================================================
+   RENDER PRODUCTS
+   ============================================================ */
+const WA = WHATSAPP_NUMBER;
+
+function whatsAppSVG() {
+  return `<svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.553 4.12 1.518 5.851L.018 24l6.337-1.48A11.934 11.934 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.795 9.795 0 01-5.003-1.367l-.36-.213-3.728.871.901-3.63-.234-.373A9.794 9.794 0 012.182 12C2.182 6.578 6.578 2.182 12 2.182S21.818 6.578 21.818 12 17.422 21.818 12 21.818z"/></svg>`;
+}
+
+function productEmoji(cat) {
+  const map = { pos: '🏪', accounting: '📊', erp: '🏢', business: '💼', utility: '🛡️' };
+  return map[cat] || '💻';
+}
+
+function renderCard(p) {
+  const hasImg = p.mainImage && p.mainImage.trim() !== '';
+  const imgHtml = hasImg
+    ? `<img src="${p.mainImage}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.querySelector('.img-placeholder').style.display='flex'">`
+    : '';
+  const placeholderStyle = hasImg ? 'display:none' : '';
+  return `
+    <div class="product-card" data-category="${p.category}" onclick="openModal(${p.id})">
+      <div class="product-card-img">
+        ${imgHtml}
+        <div class="img-placeholder" style="${placeholderStyle}">
+          <span style="font-size:3rem">${productEmoji(p.category)}</span>
+          <span style="font-size:11px;color:var(--blue-600);font-weight:600;letter-spacing:.5px">NO IMAGE SET</span>
+        </div>
+        ${p.badge ? `<div class="product-badge ${p.badge}">${p.badgeLabel}</div>` : ''}
+      </div>
+      <div class="product-card-body">
+        <div class="product-category">${p.categoryLabel}</div>
+        <h3>${p.name}</h3>
+        <p>${p.shortDesc}</p>
+        <div class="product-meta">
+          <div class="product-price">${p.price} <small>${p.priceNote}</small></div>
+        </div>
+        <div class="product-tags">${p.tags.map(t=>`<span class="product-tag">${t}</span>`).join('')}</div>
+        <div class="product-card-actions">
+          <button class="btn-details" onclick="event.stopPropagation();openModal(${p.id})">View Details</button>
+          <button class="btn-whatsapp" onclick="event.stopPropagation();openWhatsApp('Hi, I am interested in *${p.name}* (${p.price}). Please provide more info.',null)">${whatsAppSVG()} WhatsApp</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderAll() {
+  const grid = document.getElementById('productsGrid');
+  grid.innerHTML = PRODUCTS.map(renderCard).join('');
+}
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+function openModal(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  if (!p) return;
+
+  // Hero image
+  const heroEl = document.getElementById('modalHeroImg');
+  if (p.mainImage && p.mainImage.trim()) {
+    heroEl.innerHTML = `<img src="${p.mainImage}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;display:block">`;
+  } else {
+    heroEl.innerHTML = `<span style="font-size:5rem">${productEmoji(p.category)}</span>`;
+  }
+
+  document.getElementById('modalCategory').textContent = p.categoryLabel;
+  document.getElementById('modalTitle').textContent = p.name;
+  document.getElementById('modalPrice').textContent = p.price + ' ' + p.priceNote;
+  document.getElementById('modalDescription').textContent = p.description;
+
+  // Tags
+  document.getElementById('modalTagsBadges').innerHTML = p.tags.map(t=>`<span class="product-tag">${t}</span>`).join('');
+
+  // Features
+  const featList = document.getElementById('modalFeatures');
+  featList.innerHTML = p.features.map(f=>`<li>${f}</li>`).join('');
+
+  // Gallery
+  const gallerySection = document.getElementById('modalGallerySection');
+  const gallery = document.getElementById('modalGallery');
+  const validGallery = (p.galleryImages || []).filter(u => u && u.trim());
+  if (validGallery.length) {
+    gallery.innerHTML = validGallery.map(url=>`<img class="modal-gallery-img" src="${url}" alt="screenshot" onclick="window.open('${url}','_blank')">`).join('');
+    gallerySection.style.display = 'block';
+  } else {
+    gallerySection.style.display = 'none';
+  }
+
+  // Contract
+  const contractSection = document.getElementById('modalContractSection');
+  const contractLink = document.getElementById('contractLink');
+  if (p.contractPdf && p.contractPdf.trim()) {
+    contractLink.href = p.contractPdf;
+    document.getElementById('contractName').textContent = p.contractName;
+    contractSection.style.display = 'block';
+  } else {
+    contractSection.style.display = 'none';
+  }
+
+  // WhatsApp button
+  document.getElementById('modalWhatsappBtn').onclick = () =>
+    openWhatsApp(`Hi, I want to purchase *${p.name}* (${p.price}). Please share payment and delivery details.`, null);
+
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeModalOnBackdrop(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+/* ============================================================
+   WHATSAPP
+   ============================================================ */
+function openWhatsApp(msg, e) {
+  if (e) e.preventDefault();
+  const num = WA.replace(/\D/g, '');
+  window.open(`https://wa.me/${num}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+/* ============================================================
+   MOBILE MENU
+   ============================================================ */
+function toggleMobileMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+renderAll();
+</script>
+</body>
+</html>
