@@ -177,7 +177,7 @@
   .modal-body { padding: 28px 32px; }
   .modal-category { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--blue-400); margin-bottom: 6px; }
   .modal-body h2 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; color: var(--blue-900); margin-bottom: 10px; }
-  .modal-price-row { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+  .modal-price-row { display: none !important; align-items: center; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
   .modal-price { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--blue-600); }
   .modal-tags { display: flex; gap: 6px; flex-wrap: wrap; }
   .modal-section { margin-bottom: 22px; }
@@ -527,6 +527,35 @@ const PRODUCTS = [
     contractPdf: 'https://a-2-z-solutions.s3.us-east-1.amazonaws.com/contract/Software+Sales+and+Service+Agreement.pdf',                    // Paste your S3 PDF URL here
     contractName: 'Purchase Agreement.pdf',
   },
+  {
+    id: 3,
+    name: 'Tailor Management System',           // <-- Change this
+    category: 'business',
+    categoryLabel: 'Business',
+    badge: '',
+    badgeLabel: '',
+    price: 'PKR 10,000',                 // <-- Change this
+    priceNote: '/license',
+    shortDesc: 'A2Z Tailor Suite is a smart Android application designed for tailor shops to manage customer orders, measurements, and tailoring records digitally. Replace paper registers with an easy-to-use solution that helps you save time, stay organized, and improve customer service.',   // <-- Change this
+    description: '',  // <-- Change this
+    features: ['Customer Order Management', 'Male & Female Measurement Recording', 'Digital Receipt Generation', 'Customer Search by Name or Phone Number', 'Direct Customer Calling', 'Export Backup (CSV)', 'User-Friendly Interface'],  // <-- Edit features
+    tags: ['Android'],                  // <-- Edit tags
+    // ---- S3 IMAGE LINKS ----
+    mainImage: 'https://a-2-z-solutions.s3.us-east-1.amazonaws.com/images/tailor_management_system/ChatGPT+Image+Aug+3%2C+2026%2C+03_31_56+PM.png',                      // Paste your S3 image URL here
+    galleryImages: ['https://a-2-z-solutions.s3.us-east-1.amazonaws.com/images/tailor_management_system/developer_page.png',
+    'https://a-2-z-solutions.s3.us-east-1.amazonaws.com/images/tailor_management_system/digital_recipt_02.png',
+    'https://a-2-z-solutions.s3.us-east-1.amazonaws.com/images/tailor_management_system/measurements.png',
+    'https://a-2-z-solutions.s3.us-east-1.amazonaws.com/images/tailor_management_system/order_detail_page_01.png',
+    'https://a-2-z-solutions.s3.us-east-1.amazonaws.com/images/tailor_management_system/order_detail_page_02.png',
+    'https://a-2-z-solutions.s3.us-east-1.amazonaws.com/images/tailor_management_system/order_form+page.png',
+    'https://a-2-z-solutions.s3.us-east-1.amazonaws.com/images/tailor_management_system/order_list_page.png',
+    'https://a-2-z-solutions.s3.us-east-1.amazonaws.com/images/tailor_management_system/recipt_digital.png',
+    'https://a-2-z-solutions.s3.us-east-1.amazonaws.com/images/tailor_management_system/search_page.png',
+    'https://a-2-z-solutions.s3.us-east-1.amazonaws.com/images/tailor_management_system/settings_page.png'],        // Paste S3 screenshot URLs here
+    // ---- S3 CONTRACT PDF LINK ----
+    contractPdf: 'https://a-2-z-solutions.s3.us-east-1.amazonaws.com/contract/Software+Sales+and+Service+Agreement.pdf',                    // Paste your S3 PDF URL here
+    contractName: 'Purchase Agreement.pdf',
+  },
 ];
 
 /* ============================================================
@@ -563,9 +592,6 @@ function renderCard(p) {
         <div class="product-category">${p.categoryLabel}</div>
         <h3>${p.name}</h3>
         <p>${p.shortDesc}</p>
-        <div class="product-meta">
-          <div class="product-price">${p.price} <small>${p.priceNote}</small></div>
-        </div>
         <div class="product-tags">${p.tags.map(t=>`<span class="product-tag">${t}</span>`).join('')}</div>
         <div class="product-card-actions">
           <button class="btn-details" onclick="event.stopPropagation();openModal(${p.id})">View Details</button>
