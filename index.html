@@ -537,7 +537,7 @@ const PRODUCTS = [
     price: 'PKR 10,000',                 // <-- Change this
     priceNote: '/license',
     shortDesc: 'A2Z Tailor Suite is a smart Android application designed for tailor shops to manage customer orders, measurements, and tailoring records digitally. Replace paper registers with an easy-to-use solution that helps you save time, stay organized, and improve customer service.',   // <-- Change this
-    description: '',  // <-- Change this
+    description: 'A2Z Tailor Suite is a smart Android application that helps tailor shops manage customer orders, measurements, and tailoring records digitally. Simplify your daily operations, improve customer service, and replace paper registers with an organized, secure, and easy-to-use solution.',  // <-- Change this
     features: ['Customer Order Management', 'Male & Female Measurement Recording', 'Digital Receipt Generation', 'Customer Search by Name or Phone Number', 'Direct Customer Calling', 'Export Backup (CSV)', 'User-Friendly Interface'],  // <-- Edit features
     tags: ['Android'],                  // <-- Edit tags
     // ---- S3 IMAGE LINKS ----
@@ -657,7 +657,7 @@ function openModal(id) {
 
   // WhatsApp button
   document.getElementById('modalWhatsappBtn').onclick = () =>
-    openWhatsApp(`Hi, I want to purchase *${p.name}* (${p.price}). Please share payment and delivery details.`, null);
+    openWhatsApp(`Hi, I want to purchase *${p.name}*). Please share payment and delivery details.`, null);
 
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
