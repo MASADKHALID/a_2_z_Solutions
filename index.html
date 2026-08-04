@@ -595,7 +595,7 @@ function renderCard(p) {
         <div class="product-tags">${p.tags.map(t=>`<span class="product-tag">${t}</span>`).join('')}</div>
         <div class="product-card-actions">
           <button class="btn-details" onclick="event.stopPropagation();openModal(${p.id})">View Details</button>
-          <button class="btn-whatsapp" onclick="event.stopPropagation();openWhatsApp('Hi, I am interested in *${p.name}* (${p.price}). Please provide more info.',null)">${whatsAppSVG()} WhatsApp</button>
+          <button class="btn-whatsapp" onclick="event.stopPropagation();openWhatsApp('Hi, I am interested in *${p.name}*). Please provide more info.',null)">${whatsAppSVG()} WhatsApp</button>
         </div>
       </div>
     </div>`;
