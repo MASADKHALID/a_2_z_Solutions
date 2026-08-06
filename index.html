@@ -114,6 +114,7 @@
     background: white; border-radius: var(--radius-lg); border: 1px solid var(--gray-200);
     overflow: hidden; transition: transform .25s, box-shadow .25s; cursor: pointer;
     display: flex; flex-direction: column;
+    position: relative; /* required for card ribbon positioning */
   }
   .product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--blue-100); }
   .product-card-img {
@@ -122,6 +123,16 @@
     display: flex; align-items: center; justify-content: center;
     font-size: 3rem; color: var(--blue-400); position: relative;
   }
+  /* Maintenance ribbon (reusable) */
+  .card-ribbon {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: calc(100% - 28px); background: #DC2626; color: white; padding: 10px 14px;
+    font-weight: 800; font-size: 12px; text-align: center; letter-spacing: .8px;
+    border-radius: 8px; box-shadow: 0 8px 22px rgba(0,0,0,0.18);
+    display: none; pointer-events: none; z-index: 30;
+  }
+  .card-ribbon.light { background: #EF4444; }
+  .card-ribbon.small { font-size: 11px; padding: 8px 12px; }
   .product-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .product-card-img .img-placeholder { position: absolute; display: flex; flex-direction: column; align-items: center; gap: 8px; }
   .product-badge {
@@ -579,7 +590,8 @@ function renderCard(p) {
     : '';
   const placeholderStyle = hasImg ? 'display:none' : '';
   return `
-    <div class="product-card" data-category="${p.category}" onclick="openModal(${p.id})">
+    <div class="product-card" data-category="${p.category}" data-id="${p.id}" onclick="openModal(${p.id})">
+      <div class="card-ribbon" aria-hidden="true"></div>
       <div class="product-card-img">
         ${imgHtml}
         <div class="img-placeholder" style="${placeholderStyle}">
@@ -675,6 +687,45 @@ function closeModalOnBackdrop(e) {
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
 /* ============================================================
+   MAINTENANCE RIBBON HELPERS
+   Usage examples:
+     toggleMaintenanceByProductId(2, true, 'Under Maintenance')
+     setMaintenanceForAll(true)
+ ============================================================ */
+function addMaintenanceRibbonToCard(cardEl, text = 'Under Maintenance', opts = {}) {
+  if (!cardEl) return;
+  let ribbon = cardEl.querySelector('.card-ribbon');
+  if (!ribbon) {
+    ribbon = document.createElement('div');
+    ribbon.className = 'card-ribbon';
+    cardEl.appendChild(ribbon);
+  }
+  ribbon.textContent = text;
+  if (opts.variant === 'light') ribbon.classList.add('light'); else ribbon.classList.remove('light');
+  if (opts.small) ribbon.classList.add('small'); else ribbon.classList.remove('small');
+  ribbon.style.display = 'block';
+}
+
+function removeMaintenanceRibbonFromCard(cardEl) {
+  if (!cardEl) return;
+  const ribbon = cardEl.querySelector('.card-ribbon');
+  if (ribbon) ribbon.style.display = 'none';
+}
+
+function toggleMaintenanceByProductId(productId, show = true, text = 'Under Maintenance', opts = {}) {
+  const card = document.querySelector(`.product-card[data-id="${productId}"]`);
+  if (!card) return false;
+  if (show) addMaintenanceRibbonToCard(card, text, opts); else removeMaintenanceRibbonFromCard(card);
+  return true;
+}
+
+function setMaintenanceForAll(show = true, text = 'Under Maintenance') {
+  document.querySelectorAll('.product-card').forEach(card => {
+    if (show) addMaintenanceRibbonToCard(card, text); else removeMaintenanceRibbonFromCard(card);
+  });
+}
+
+/* ============================================================
    WHATSAPP
    ============================================================ */
 function openWhatsApp(msg, e) {
@@ -694,6 +745,7 @@ function toggleMobileMenu() {
    INIT
    ============================================================ */
 renderAll();
+toggleMaintenanceByProductId(1, true, 'System Upgrade in Progress', { variant: 'light' });
 </script>
 </body>
 </html>
